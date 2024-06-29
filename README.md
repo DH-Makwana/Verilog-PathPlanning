@@ -20,5 +20,7 @@ The directory **PathPlanning** has the verilog codes for the map shown below.
 
 The codes were run by a Python scripts and the compiler used was [**Iverilog**](https://github.com/steveicarus/iverilog).
 
-Here's the output for the start node (3) and end node (19).
+Here's the output for the start node (3) and end node (25).
+
+<img src="https://github.com/DH-Makwana/Verilog-PathPlanning/assets/107695582/85f2e9cc-eb6a-4fc4-a7a8-5c2f531cfae9" width="350">
 
