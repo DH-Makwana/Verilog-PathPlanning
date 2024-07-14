@@ -32,7 +32,7 @@ class block(object):
         self.color = color
         self.path = False
 
-    def disp(self):
+    def disp(self, key):
         global started, start
         global ended, end
         global win, n
@@ -46,26 +46,26 @@ class block(object):
                     c = self.color[i]+50
                 clr.append(c)
             color = (clr[0], clr[1], clr[2])
-
-            if pygame.mouse.get_pressed()[0]:
-                self.color = (255, 200, 0)
-                self.val = -1
-            if key[pygame.K_e] and event.type == pygame.KEYUP and not ended:
-                self.color = (0, 0, 200)
-                end = self.pos
-                self.val = -2
-                ended = True
-            if key[pygame.K_s] and event.type == pygame.KEYUP and not started:
-                self.color = (0, 200, 0)
-                start = self.pos
-                self.val = 0
-                started = True
+            for event in pygame.event.get():
+                if pygame.mouse.get_pressed()[0]:
+                    self.color = (255, 200, 0)
+                    self.val = -1
+                if key[pygame.K_e] and event.type == pygame.KEYUP and not ended:
+                    self.color = (0, 0, 200)
+                    end = self.pos
+                    self.val = -2
+                    ended = True
+                if key[pygame.K_s] and event.type == pygame.KEYUP and not started:
+                    self.color = (0, 200, 0)
+                    start = self.pos
+                    self.val = 0
+                    started = True
         else:
             if 0 < self.val < 255 and not self.path:
                 color = (0, 200, 200)
             else:
                 color = self.color
-        
+	        
         pygame.draw.rect(win, color, (self.x, self.y, self.w, self.h))
         addText(str(self.val), 16, (self.x+self.w/2, self.y+self.h/2), (255, 255, 255), color)
         #pygame.display.update()
@@ -162,11 +162,12 @@ for i in range(n):
 while True:
     #win.fill((0, 0, 0))
     error = False
+    key = pygame.key.get_pressed()
     for i in range(n):
         for j in range(n):
             arr[i][j].val = blocks[i][j].getval()
-            blocks[i][j].disp()
-    key = pygame.key.get_pressed()        
+            blocks[i][j].disp(key)
+        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
